@@ -1,0 +1,84 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="system.css">
+    <title>Hệ Thống Giám Sát Nhiệt Độ Độ Ẩm Giao Thông </title>
+</head>
+
+<body>
+    <!-- nav bar -->
+    <header class="header">
+        <div class="logo-header">           
+            <div class="header-text">
+                <h1>HỆ THỐNG GIÁM SÁT NHIỆT ĐỘ- ĐỘ ẨM ĐÈN GIAO THÔNG </h1>
+
+            </div>
+        </div>
+        <nav class="nav-bar">
+            <!-- <a href="#home">Trang chủ</a> -->
+            <a href="begin.html">HOME</a>
+            <a href="members.html">THÀNH VIÊN</a>
+            <a id="if" href="index.html">ĐĂNG XUẤT</a>
+        </nav>
+    </header>
+    <!-- end nav bar -->
+    <!--thông số -->
+    <div class="dp-sensor">
+        <div class="column">                   
+            <h1>NHIỆT ĐỘ: </h1>               
+            <div >
+                <h2  id="actTemp"></h2>
+            </div>           
+        </div>
+        <div class="column">
+             <h1>ĐỘ ẨM: </h1>             
+                <div >
+                    <h2 id="actHumi"></h2>
+                </div>
+        </div>
+    </div>
+      
+    // Ket noi voi firebase
+     
+    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-database.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-analytics.js"></script>
+    <!-- lien ket voi functions.js -->
+    
+    
+    <script>
+    
+     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyCU95FFsC4SNSJOLZwfU3VgqY6VOylrHKI",
+      authDomain: "traffic-da1d7.firebaseapp.com",
+      databaseURL: "https://traffic-da1d7-default-rtdb.firebaseio.com",
+      projectId: "traffic-da1d7",
+      storageBucket: "traffic-da1d7.appspot.com",
+      messagingSenderId: "591770603902",
+      appId: "1:591770603902:web:354338c4bd425eef0ca32f",
+      measurementId: "G-CJNC676FHQ"
+    };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+      
+      //functions
+      // make sure that the name in ' ' match with name of your database child
+      var nhietDo = document.getElementById('actTemp');
+      var dbRef = firebase.database().ref().child('DHT11SensorData/Temperature');
+      var doAm = document.getElementById('actHumi');
+      var dbRef2 = firebase.database().ref().child('DHT11SensorData/Humidity');
+      dbRef.on('value', snap => nhietDo.innerText = snap.val());
+      dbRef2.on('value', snap => doAm.innerText = snap.val());
+    </script>
+</body>
+</html>
